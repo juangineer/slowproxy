@@ -1,0 +1,17 @@
+# Copyright (c) 2023 juangineer
+version: "3.9"
+services:
+  slowproxy:
+    image: slowproxy:latest
+    container_name: slowproxy
+    cap_add: ['NET_ADMIN']
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    environment:
+      - ETH_NAME=enp0s3
+      - DELAY=100ms
+      - JITTER=10ms
+      - DATARATE=10mbit
+      - LOSS_PERCENT=0
+    network_mode: host
